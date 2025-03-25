@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfe12996eeecb6fdc8713a9fd9d431f8",
+    "content-hash": "3f15995224e07b92c6699997030e19f5",
     "packages": [
         {
             "name": "brick/math",
@@ -1049,6 +1049,45 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "interreposerv/inreser",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bilal-kassab/InterRepoServ-package.git",
+                "reference": "b751de42abb68bc6b17ab733d4df96d1d388f200"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bilal-kassab/InterRepoServ-package/zipball/b751de42abb68bc6b17ab733d4df96d1d388f200",
+                "reference": "b751de42abb68bc6b17ab733d4df96d1d388f200",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0",
+                "php": "^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InterRepoServ\\InreSer\\InterRepoServProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "InterRepoServ\\InreSer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A package for creating interface, repository, and service and other classes in Laravel",
+            "support": {
+                "issues": "https://github.com/Bilal-kassab/InterRepoServ-package/issues",
+                "source": "https://github.com/Bilal-kassab/InterRepoServ-package/tree/v2.0.0"
+            },
+            "time": "2025-03-18T08:42:00+00:00"
         },
         {
             "name": "laravel/framework",
