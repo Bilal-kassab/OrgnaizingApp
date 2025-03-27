@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\Room;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return "ff";
+    // return "ff";
+    return view('layouts.app');
+});
+Route::get('/hh', function () {
+    return "crreate task";
+})->name('tasks.create');
+Route::get('/gg', function () {
+    return "index task";
+})->name('tasks.index');
+
+Route::get('/ff/{roomId}', function ($roomId) {
+    $tasks=Task::where('room_id',$roomId)->latest()->get();
+    return view('tasks.index',compact('roomId','tasks'));
 });
 
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');

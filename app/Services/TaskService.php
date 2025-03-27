@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\TaskRepositoryInterface;
+use App\Models\Room;
 use Exception;
 
 class TaskService
@@ -13,6 +14,7 @@ class TaskService
     }
 
     public function getAllTasks($roomId) {
+        $room=Room::findOrFail($roomId);
         return $this->taskRepository->getAll($roomId);
     }
 

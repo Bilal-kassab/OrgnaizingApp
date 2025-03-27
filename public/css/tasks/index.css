@@ -1,0 +1,45 @@
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    color: white;
+    background: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+.btn:hover {
+    background: #0056b3;
+}
+.btn-danger {
+    background: #dc3545;
+}
+.btn-danger:hover {
+    background: #a71d2a;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.table th {
+    background: #007bff;
+    color: white;
+}
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.success {
+    background: #d4edda;
+    color: #155724;
+}
+.error {
+    background: #f8d7da;
+    color: #721c24;
+}
