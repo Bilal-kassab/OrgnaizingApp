@@ -39,8 +39,8 @@
                 <td> {{ date('Y-m-d', strtotime($task->created_at)) }} </td>
                 <td style="display: flex; justify-content: space-around;">
 
-                    {{-- "{{ route('tasks.show', $task->id) }}" --}}
-                    <a href="#" class="btn btn-view">View Details</a>
+                    {{--  --}}
+                    <a href="{{ route('taskDetails.index', $task->id) }}" class="btn btn-view">View Details</a>
 
                     {{--  --}}
                     <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-edit">Edit</a>

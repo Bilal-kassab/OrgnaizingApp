@@ -22,10 +22,10 @@ class StoreTaskDetailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'task_id' => 'required|exists:tasks,id',
+            'task_id' => 'required|exists:tasks,id',
             'check' => 'nullable|boolean',
             'body' => 'required|string',
-            'price'=>'required'
+            'price'=>'numeric'
         ];
     }
 }

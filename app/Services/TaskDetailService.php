@@ -19,7 +19,7 @@ class TaskDetailService
     public function getTaskDetailsByTaskId($taskId) {
         return $this->taskDetailRepository->getByTaskId($taskId);
     }
-    
+
     public function getTaskDetailById($id) {
         return $this->taskDetailRepository->findById($id);
     }

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskDetailController;
 use App\Http\Controllers\UserController;
 use App\Models\Room;
 use App\Models\Task;
+use App\Models\TaskDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,10 @@ Route::get('/edit/{task}', [TaskController::class,'edit'])->name('tasks.edit');
 Route::post('/update', [TaskController::class,'update'])->name('tasks.update');
 Route::post('/delete/{task}', [TaskController::class,'destroy'])->name('tasks.destroy');
 
+
+Route::get('/task-details/{taskId}', [TaskDetailController::class,'index'])->name('taskDetails.index');
+Route::get('/create-task-details/{taskId}', [TaskDetailController::class,'create'])->name('taskDetails.create');
+Route::post('/store-task-details', [TaskDetailController::class,'store'])->name('taskDetails.store');
 
 
 // Route::get('/room-tasks/{roomId}', function ($roomId) {

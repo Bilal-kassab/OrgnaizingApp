@@ -26,14 +26,13 @@ class TaskDetailController extends Controller
         return view('taskDetails.create', compact('taskId'));
     }
 
-    public function store(StoreTaskDetailRequest $request, $taskId) {
+    public function store(StoreTaskDetailRequest $request) {
         try {
             $data = $request->validated();
-            $data['task_id'] = $taskId;
 
             $this->taskDetailService->createTaskDetail($data);
 
-            return redirect()->route('taskDetails.index', $taskId)
+            return redirect()->route('taskDetails.index', $data['task_id'])
                              ->with('success', 'Task detail created successfully.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
