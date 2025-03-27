@@ -2,64 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Task\StoreTaskRequest;
+use App\Http\Requests\Task\UpdateTaskRequest;
 use App\Models\Task;
+use App\Services\TaskService;
+use Exception;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    protected $taskService;
+
+    public function __construct(TaskService $taskService) {
+        $this->taskService = $taskService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function roomTasks($roomId) {
+        $tasks = $this->taskService->getAllTasks($roomId);
+        return view('tasks.index', compact('tasks','roomId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function create($roomId) {
+        return view('tasks.create',compact($roomId));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Task $task)
-    {
-        //
+    public function store(StoreTaskRequest $request,$roomId) {
+        try {
+            $data = $request->validated();
+            $data['user_id'] = auth()->id();
+            $task= $this->taskService->createTask($data);
+            // Redirect to the room's task list
+        return redirect()->route('tasks.index', ['room_id' => $task->room_id])
+        ->with('success', 'Task created successfully.');
+
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Task $task)
-    {
-        //
+    public function edit($id) {
+        try {
+            $task = $this->taskService->getTaskById($id);
+            return view('tasks.edit', compact('task'));
+        } catch (Exception $e) {
+            return redirect()->route('tasks.index')->with('error', 'Task not found.');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Task $task)
-    {
-        //
+    public function update(UpdateTaskRequest $request, $id) {
+        try {
+            $this->taskService->updateTask($id, $request->validated());
+            return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
-    {
-        //
+    public function destroy($id) {
+        try {
+            $this->taskService->deleteTask($id);
+            return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('tasks.index')->with('error', $e->getMessage());
+        }
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('room_id');
             $table->foreign('room_id')->references('id')->on('rooms')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->string('description');
+            $table->text('description')->nullable();
             $table->decimal('money')->default(0);
 
 
