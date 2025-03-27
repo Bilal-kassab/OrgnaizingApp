@@ -11,7 +11,7 @@ class TaskDetail extends Model
     use HasFactory;
 
     protected $fillable=[
-        'check','body','task_id'
+        'check','body','task_id','price'
     ];
 
     public function task():BelongsTo

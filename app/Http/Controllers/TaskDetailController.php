@@ -2,64 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskDetail\StoreTaskDetailRequest;
+use App\Http\Requests\TaskDetail\UpdateTaskDetailRequest;
 use App\Models\TaskDetail;
+use App\Services\TaskDetailService;
+use Exception;
 use Illuminate\Http\Request;
 
 class TaskDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    protected $taskDetailService;
+
+    public function __construct(TaskDetailService $taskDetailService) {
+        $this->taskDetailService = $taskDetailService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function index($taskId) {
+        $taskDetails = $this->taskDetailService->getTaskDetailsByTaskId($taskId);
+        return view('taskDetails.index', compact('taskDetails', 'taskId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function create($taskId) {
+        return view('taskDetails.create', compact('taskId'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(TaskDetail $taskDetail)
-    {
-        //
+    public function store(StoreTaskDetailRequest $request, $taskId) {
+        try {
+            $data = $request->validated();
+            $data['task_id'] = $taskId;
+
+            $this->taskDetailService->createTaskDetail($data);
+
+            return redirect()->route('taskDetails.index', $taskId)
+                             ->with('success', 'Task detail created successfully.');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TaskDetail $taskDetail)
-    {
-        //
+    public function edit($id) {
+        $taskDetail = $this->taskDetailService->getTaskDetailById($id);
+        return view('taskDetails.edit', compact('taskDetail'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, TaskDetail $taskDetail)
-    {
-        //
+    public function update(UpdateTaskDetailRequest $request, $id) {
+        try {
+            $this->taskDetailService->updateTaskDetail($id, $request->validated());
+            return redirect()->route('taskDetails.index')->with('success', 'Task detail updated successfully.');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(TaskDetail $taskDetail)
-    {
-        //
+    public function destroy($id) {
+        try {
+            $this->taskDetailService->deleteTaskDetail($id);
+            return redirect()->route('taskDetails.index')->with('success', 'Task detail deleted successfully.');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
+
 }
