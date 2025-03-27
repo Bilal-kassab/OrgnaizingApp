@@ -12,8 +12,8 @@
     <!-- Navbar -->
     <div class="navbar">
         <a href="{{ url('/') }}">Home</a>
-        <a href="{{ route('tasks.index') }}">Tasks</a>
-        <a href="{{ route('tasks.create') }}">Add Task</a>
+        {{-- <a href="{{ route('tasks.index') }}">Tasks</a> --}}
+        {{-- <a href="{{ route('tasks.create') }}">Add Task</a> --}}
     </div>
 
     <!-- Main Content -->

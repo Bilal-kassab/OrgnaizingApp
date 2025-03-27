@@ -18,13 +18,15 @@
 <link rel="stylesheet" href="{{ asset('css/tasks/index.css') }}">
 @endsection
 <!-- Add New Task Button -->
-<a href="{{ route('tasks.create', $roomId) }}" class="btn">Add New Task</a>
+<a href="{{ route('tasks.create', $roomId) }}" class="btn btn-add">Add New Task</a>
 
 <table class="table">
     <thead>
         <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Money</th>
+            <th>Created At</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -33,12 +35,20 @@
             <tr>
                 <td>{{ $task->name }}</td>
                 <td>{{ $task->description }}</td>
-                <td>
-                    <a href="{{ route('tasks.show', $task->id) }}" class="btn">View</a>
-                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn">Edit</a>
-                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
+                <td>{{ $task->money }}</td>
+                <td> {{ date('Y-m-d', strtotime($task->created_at)) }} </td>
+                <td style="display: flex; justify-content: space-around;">
+
+                    {{-- "{{ route('tasks.show', $task->id) }}" --}}
+                    <a href="#" class="btn btn-view">View Details</a>
+
+                    {{--  --}}
+                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-edit">Edit</a>
+
+                    {{--  --}}
+                    <form  action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
                         @csrf
-                        @method('DELETE')
+                        @method('POST')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>

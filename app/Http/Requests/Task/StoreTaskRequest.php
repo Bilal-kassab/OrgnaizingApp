@@ -25,7 +25,7 @@ class StoreTaskRequest extends FormRequest
             'room_id' => 'required|exists:rooms,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'money'=>'decimal|numeric'
+            'money'=>'numeric'
         ];
     }
 }

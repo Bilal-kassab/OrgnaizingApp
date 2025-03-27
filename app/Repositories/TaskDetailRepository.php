@@ -14,7 +14,7 @@ class TaskDetailRepository implements TaskDetailRepositoryInterface
     public function getByTaskId($taskId) {
         return TaskDetail::where('task_id', $taskId)->latest()->get();
     }
-    
+
     public function findById($id) {
         return TaskDetail::findOrFail($id);
     }
