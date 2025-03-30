@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskDetailController;
 use App\Http\Controllers\UserController;
@@ -19,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/f', function () {
     // return view('welcome');
     // return "ff";
-    return view('layouts.app');
+    return view('layouts2.app');
 });
 
 Route::get('/room-tasks/{roomId}', [TaskController::class,'roomTasks'])->name('tasks.index');
@@ -45,6 +46,70 @@ Route::post('/store-task-details', [TaskDetailController::class,'store'])->name(
 
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+
+
+
+Route::get('/', function () {
+    return view('layouts/app');
+    // return "ff";
+});
+    // Registration
+
+Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [AuthController::class, 'register']);
+
+
+ // Login
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
+
+// Authentication Routes
+Route::middleware('guest')->group(function () {
+    // Login
+
+
+    // Registration
+
+    // Password Reset
+    Route::get('forgot-password', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+
+    Route::get('reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+    Route::post('reset-password', [AuthController::class, 'reset'])->name('password.update');
+});
+
+
+
+Route::get('/app', function () {
+    return view('layouts/app');
+})->name('app');
+
+
+Route::middleware('auth')->group(function () {
+    // Logout
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+    //dashboard
+    Route::get('/dashboard', function () {
+        return view('layouts/dashboard');
+    })->name('dashboard');
+
+    //profile
+    Route::get('profile', [UserController::class, 'showProfile'])->name('profile');
+    //update profile
+    Route::post('profile_update', [UserController::class, 'update'])->name('profile.update');
+    //saerch
+
+
+    //search User
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+
+});
+
+
+Route::get('search', function(){
+    return view("user/search");
+});
 
 
 
