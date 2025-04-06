@@ -38,7 +38,10 @@ class TaskController extends Controller
         ->with('success', 'Task created successfully.');
 
         } catch (Exception $e) {
-            return back()->with('error', $e->getMessage());
+            throw new Exception($e);
+            return view('tasks.create', ['er' => $e->getMessage(),'roomId' => $request->room_id])
+                             ->with('error', $e->getMessage());
+            return back()->with(['error', $e->getMessage()]);
         }
     }
 
@@ -53,7 +56,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request) {
         try {
-           $task= $this->taskService->updateTask( $request->id,$request->validated());
+            $task= $this->taskService->updateTask( $request->id,$request->validated());
             return redirect()->route('tasks.index',['roomId' => $task->room_id])->with('success', 'Task updated successfully.');
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());

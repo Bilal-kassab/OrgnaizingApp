@@ -10,6 +10,7 @@
 
         @if(session('error'))
             <div class="error-message">
+                <p>{{$er}}</p>
                 {{ session('error') }}
             </div>
         @endif

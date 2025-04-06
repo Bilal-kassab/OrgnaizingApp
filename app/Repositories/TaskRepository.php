@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\TaskRepositoryInterface;
+use App\Models\Room;
 use App\Models\Task;
 
 class TaskRepository implements TaskRepositoryInterface

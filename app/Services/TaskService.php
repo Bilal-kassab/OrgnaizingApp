@@ -24,7 +24,8 @@ class TaskService
 
     public function createTask(array $data) {
         try {
-            $this->taskRepository->findById($data['room_id']);
+            // $this->taskRepository->findById($data['room_id']);
+            Room::findOrFail($data['room_id']);
             return $this->taskRepository->create($data);
         } catch (Exception $e) {
             throw new Exception('Unable to create task.');
