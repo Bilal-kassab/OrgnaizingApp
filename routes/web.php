@@ -20,11 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/f', function () {
-    // return view('welcome');
-    // return "ff";
-    return view('layouts.app');
-});
+
 
 Route::get('/room-tasks/{roomId}', [TaskController::class,'roomTasks'])->name('tasks.index');
 Route::get('/create/{roomId}', [TaskController::class,'create'])->name('tasks.create');
