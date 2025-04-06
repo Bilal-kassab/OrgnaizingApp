@@ -16,6 +16,7 @@ class TaskRepository implements TaskRepositoryInterface
         return Task::findOrFail($id);
     }
 
+
     public function create(array $data) {
         return Task::create($data);
     }
