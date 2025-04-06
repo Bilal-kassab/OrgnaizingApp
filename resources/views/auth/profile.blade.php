@@ -192,7 +192,7 @@
         <div class="profile-container">
             <!-- Profile Sidebar -->
             <div class="profile-sidebar">
-                <img src="{{ Auth::user()->image ? asset('storage/'.Auth::user()->image) : 'https://via.placeholder.com/150' }}"
+                <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : 'https://via.placeholder.com/150' }}"
                      alt="Profile Image"
                      class="profile-img">
 
@@ -233,7 +233,7 @@
 
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                       
+
 
                         <div class="form-group">
                             <label>Full Name</label>

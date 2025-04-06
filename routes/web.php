@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/f', function () {
     // return view('welcome');
     // return "ff";
-    return view('layouts2.app');
+    return view('layouts.app');
 });
 
 Route::get('/room-tasks/{roomId}', [TaskController::class,'roomTasks'])->name('tasks.index');
@@ -50,7 +50,7 @@ Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('
 
 
 Route::get('/', function () {
-    return view('layouts/app');
+    return view('auth/app');
     // return "ff";
 });
     // Registration
@@ -81,7 +81,7 @@ Route::middleware('guest')->group(function () {
 
 
 Route::get('/app', function () {
-    return view('layouts/app');
+    return view('auth/app');
 })->name('app');
 
 
@@ -91,7 +91,7 @@ Route::middleware('auth')->group(function () {
 
     //dashboard
     Route::get('/dashboard', function () {
-        return view('layouts/dashboard');
+        return view('home/dashboard');
     })->name('dashboard');
 
     //profile

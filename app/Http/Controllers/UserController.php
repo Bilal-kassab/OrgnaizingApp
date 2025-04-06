@@ -17,7 +17,7 @@ class UserController extends Controller
         $this->userService = $userService;
     }
     public function showProfile(){
-        return view('layouts.profile');
+        return view('auth.profile');
     }
 
 

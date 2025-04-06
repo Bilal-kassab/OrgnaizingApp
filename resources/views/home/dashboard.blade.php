@@ -137,7 +137,7 @@
 
         <div class="container">
             <div class="profile-card">
-            <img src="{{ Auth::user()->image ? asset('ProfileImage/'.Auth::user()->image) : 'https://via.placeholder.com/100' }}"
+            <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : 'https://via.placeholder.com/100' }}"
                 alt="Profile Image"
                 class="profile-img"
                 id="profile-image">

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\TaskRepositoryInterface;
+use App\Models\Room;
 use App\Models\Task;
 
 class TaskRepository implements TaskRepositoryInterface
@@ -14,6 +15,7 @@ class TaskRepository implements TaskRepositoryInterface
     public function findById($id) {
         return Task::findOrFail($id);
     }
+
 
     public function create(array $data) {
         return Task::create($data);
