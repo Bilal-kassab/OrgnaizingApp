@@ -19,9 +19,10 @@ class EnsureUserIsRoomOwner
         $roomId = $request->route('id');
         $room = Room::findOrFail($roomId);
 
-        if ($room->owner_id !== auth()->id()) {
+        if ($room->owner_id != auth()->id()) {
             abort(403, 'Only the room owner can perform this action.');
         }
+        
         return $next($request);
     }
 }

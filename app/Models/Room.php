@@ -13,7 +13,7 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable=[
-        'owner_id','description','name'
+        'owner_id','description','name','wallet'
     ];
 
     public function owner():BelongsTo

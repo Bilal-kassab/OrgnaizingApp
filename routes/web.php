@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [UserController::class, 'showProfile'])->name('profile');
     //update profile
     Route::post('profile_update', [UserController::class, 'update'])->name('profile.update');
+    Route::view('updateProfile', 'auth.updateProfile')->name(name: 'update_profile');
 
     //search User
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
@@ -85,12 +86,13 @@ Route::middleware('auth')->group(function () {
     Route::prefix('rooms')->name('rooms.')->controller(RoomController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
+        Route::post('/store', 'store')->name('store');
+        // Route::post('/update/{id}', 'update')->name('rooms.update');
 
         Route::middleware('room.owner')->group(function () {
-            Route::get('/{id}/edit', 'edit')->name('edit');
-            Route::post('/{id}', 'update')->name('update');
-            Route::post('/{id}', 'destroy')->name('destroy');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::post('/destroy/{id}', 'destroy')->name('destroy');
         });
     });
 
@@ -128,6 +130,12 @@ Route::middleware('auth')->group(function () {
         return view("user/search");
     });
 });
+Route::get('hh', function(){
 
-
-
+      $room =Room::create([
+            "name"=>'name',
+            "description"=>'description',
+            "wallet"=>50
+        ]);
+        return $room;
+});
