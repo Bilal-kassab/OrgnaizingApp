@@ -2,64 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRoomRequest;
+use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Room;
+use App\Services\RoomService;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    protected $roomService;
+
+    public function __construct(RoomService $roomService) {
+        $this->roomService = $roomService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function index() {
+        $rooms = $this->roomService->getAll();
+        return view('rooms.index', compact('rooms'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function create() {
+        return view('rooms.create');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Room $room)
-    {
-        //
+    public function store(StoreRoomRequest $request) {
+        try {
+            $this->roomService->create($request->validated());
+            return redirect()->route('rooms.index')->with('success', 'Room created successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error creating room: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Room $room)
-    {
-        //
+    public function edit($id) {
+        $room = $this->roomService->findById($id);
+        return view('rooms.edit', compact('room'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Room $room)
-    {
-        //
+    public function update(UpdateRoomRequest $request, $id) {
+        try {
+            $room = $this->roomService->findById($id);
+            $this->roomService->update($room, $request->validated());
+            return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error updating room: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Room $room)
-    {
-        //
+    public function destroy($id) {
+        try {
+            $room = $this->roomService->findById($id);
+            $this->roomService->delete($room);
+            return redirect()->route('rooms.index')->with('success', 'Room deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error deleting room: ' . $e->getMessage());
+        }
     }
 }

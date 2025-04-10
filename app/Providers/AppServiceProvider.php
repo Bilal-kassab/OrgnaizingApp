@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Interfaces\AuthRepositoryInterface;
+use App\Interfaces\RoomRepositoryInterface;
 use App\Interfaces\TaskDetailRepositoryInterface;
 use App\Interfaces\TaskRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\AuthRepository;
+use App\Repositories\RoomRepositor;
 use App\Repositories\TaskDetailRepository;
 use App\Repositories\TaskRepository;
 use App\Repositories\UserRepository;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TaskDetailRepositoryInterface::class, TaskDetailRepository::class);
         $this->app->bind(AuthRepositoryInterface::class,AuthRepository::class);
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
+        $this->app->bind(RoomRepositoryInterface::class,RoomRepositor::class);
 
     }
 

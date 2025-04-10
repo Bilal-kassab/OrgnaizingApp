@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskDetailController;
 use App\Http\Controllers\UserController;
@@ -22,18 +23,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/room-tasks/{roomId}', [TaskController::class,'roomTasks'])->name('tasks.index');
-Route::get('/create/{roomId}', [TaskController::class,'create'])->name('tasks.create');
-Route::post('/store', [TaskController::class,'store'])->name('tasks.store');
-Route::get('/edit/{task}', [TaskController::class,'edit'])->name('tasks.edit');
-Route::post('/update', [TaskController::class,'update'])->name('tasks.update');
-Route::post('/delete/{task}', [TaskController::class,'destroy'])->name('tasks.destroy');
-
-
-Route::get('/task-details/{taskId}', [TaskDetailController::class,'index'])->name('taskDetails.index');
-Route::get('/create-task-details/{taskId}', [TaskDetailController::class,'create'])->name('taskDetails.create');
-Route::post('/store-task-details', [TaskDetailController::class,'store'])->name('taskDetails.store');
-
 
 // Route::get('/room-tasks/{roomId}', function ($roomId) {
 //     $tasks=Task::where('room_id',$roomId)->latest()->get();
@@ -48,7 +37,7 @@ Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('
 Route::get('/', function () {
     return view('auth/app');
     // return "ff";
-});
+})->name('app');
     // Registration
 
 Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register');
@@ -75,12 +64,6 @@ Route::middleware('guest')->group(function () {
 });
 
 
-
-Route::get('/app', function () {
-    return view('auth/app');
-})->name('app');
-
-
 Route::middleware('auth')->group(function () {
     // Logout
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -94,17 +77,56 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [UserController::class, 'showProfile'])->name('profile');
     //update profile
     Route::post('profile_update', [UserController::class, 'update'])->name('profile.update');
-    //saerch
-
 
     //search User
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
-});
+    //rooms
+    Route::prefix('rooms')->name('rooms.')->controller(RoomController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+
+        Route::middleware('room.owner')->group(function () {
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::post('/{id}', 'update')->name('update');
+            Route::post('/{id}', 'destroy')->name('destroy');
+        });
+    });
+
+    // tasks
+
+    Route::controller(TaskController::class)->group(function () {
+        Route::middleware(['room.member'])->group(function () {
+            Route::get('/room-tasks/{roomId}', 'roomTasks')->name('tasks.index');
+            Route::get('/create/{roomId}', 'create')->name('tasks.create');
+        });
+        Route::post('/store', 'store')->name('tasks.store');
+
+        Route::middleware(['task.access'])->group(function () {
+            Route::get('/edit/{task}', 'edit')->name('tasks.edit');
+            Route::post('/delete/{task}', 'destroy')->name('tasks.destroy');
+        });
+        Route::post('/update',  'update')->name('tasks.update');
+
+    });
 
 
-Route::get('search', function(){
-    return view("user/search");
+    // task details
+
+    Route::controller(TaskDetailController::class)->group(function () {
+        Route::middleware('can.access.task.details')->group(function () {
+            Route::get('/task-details/{taskId}', 'index')->name('taskDetails.index');
+            Route::get('/create-task-details/{taskId}', 'create')->name('taskDetails.create');
+        });
+
+        Route::post('/store-task-details',  'store')->name('taskDetails.store');
+
+    });
+
+    Route::get('search', function(){
+        return view("user/search");
+    });
 });
 
 

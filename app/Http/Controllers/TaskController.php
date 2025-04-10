@@ -30,17 +30,14 @@ class TaskController extends Controller
 
         try {
             $data = $request->validated();
-            // $data['user_id'] = auth()->id();
-            $data['user_id'] = 1;
+            $data['user_id'] = auth()->id();
+            // $data['user_id'] = 1;
             $task= $this->taskService->createTask($data);
             // Redirect to the room's task list
         return redirect()->route('tasks.index', ['roomId' => $task->room_id])
         ->with('success', 'Task created successfully.');
 
         } catch (Exception $e) {
-            throw new Exception($e);
-            return view('tasks.create', ['er' => $e->getMessage(),'roomId' => $request->room_id])
-                             ->with('error', $e->getMessage());
             return back()->with(['error', $e->getMessage()]);
         }
     }

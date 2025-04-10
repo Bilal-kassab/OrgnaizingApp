@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\TaskDetailRepositoryInterface;
+use App\Models\Task;
 
 class TaskDetailService
 {
@@ -17,6 +18,7 @@ class TaskDetailService
     }
 
     public function getTaskDetailsByTaskId($taskId) {
+        Task::findOrFail($taskId);
         return $this->taskDetailRepository->getByTaskId($taskId);
     }
 

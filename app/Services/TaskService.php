@@ -15,7 +15,7 @@ class TaskService
 
     public function getAllTasks($roomId) {
         $room=Room::findOrFail($roomId);
-        return $this->taskRepository->getAll($roomId);
+        return $this->taskRepository->getAll($room->id);
     }
 
     public function getTaskById($id) {

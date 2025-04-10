@@ -57,3 +57,37 @@ h2{
     background: #f8d7da;
     color: #721c24;
 }
+
+/* Responsive wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Make buttons stack on mobile */
+@media (max-width: 768px) {
+    .btn-add {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    td[style*="display: flex"] {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .table th, .table td {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+}
