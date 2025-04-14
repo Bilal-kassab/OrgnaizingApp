@@ -8,7 +8,7 @@ use App\Models\Room;
 class RoomRepositor implements RoomRepositoryInterface
 {
     public function getAll() {
-        return Room::isMember(2)->latest()->get();
+        return Room::isMember(auth()->id())->latest()->get();
     }
 
     public function findById($id) {

@@ -27,7 +27,10 @@ class TaskDetailService
     }
 
     public function createTaskDetail($data) {
-        return $this->taskDetailRepository->create($data);
+
+        $taskDetail=$this->taskDetailRepository->create($data);
+        
+        return $taskDetail;
     }
 
     public function updateTaskDetail($id, $data) {
