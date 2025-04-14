@@ -12,7 +12,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable=[
-        'description','name','room_id','user_id','money'
+        'description','name','room_id','user_id','money',
     ];
 
     public function room():BelongsTo
