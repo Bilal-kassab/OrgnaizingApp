@@ -134,7 +134,7 @@
 
         .btn-danger {
             background-color: var(--danger);
-            color: var(--white);
+            color: var(--danger-dark);
             border: none;
         }
 
@@ -180,50 +180,9 @@
     </style>
 </head>
 <body>
-    @include('layouts.header')
-    <div class="container">
-        <div class="profile-container">
-            <!-- Profile Sidebar -->
-            <div class="profile-sidebar">
-                <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : 'https://via.placeholder.com/150' }}"
-                     alt="Profile Image"
-                     class="profile-img">
-
-                <h2 class="profile-name">{{ Auth::user()->name }}</h2>
-                <p class="profile-email">{{ Auth::user()->email }}</p>
-
-                <ul class="profile-menu">
-                    <li><a href="#" class="active">Profile Information</a></li>
-                    <li><a href="{{ route('update_profile') }}">Update Profile</a></li>
-                    <li><a href="#">Change Password</a></li>
-                    <li><a href="#">Account Settings</a></li>
-                </ul>
-            </div>
-
-            <!-- Profile Content -->
-            <div class="profile-content">
-                <div class="profile-section">
-                    <h2>Profile Information</h2>
-
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" value="{{ Auth::user()->name }}" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" value="{{ Auth::user()->email }}" readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Account Created</label>
-                        <input type="text" value="{{ Auth::user()->created_at->format('F j, Y') }}" readonly>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="height:75px"></div>
-   @include('layouts.footer')
+<header class="header">
+            <h1>Dashboard</h1>
+            <a href="{{ route('logout') }}" class="btn btn-logout">Logout</a>
+        </header>
 </body>
 </html>

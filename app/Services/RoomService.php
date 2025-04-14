@@ -22,11 +22,16 @@ class RoomService
     }
 
     public function create(array $data) {
-        return $this->roomRepo->create($data);
+
+        $room =$this->roomRepo->create($data);
+    return $room;
     }
 
-    public function update(Room $room, array $data) {
-        return $this->roomRepo->update($room, $data);
+    public function update($roomId, array $data) {
+
+         $room= $this->roomRepo->update($roomId, $data);
+        //  dd($data);
+         return $room;
     }
 
     public function delete(Room $room) {

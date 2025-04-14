@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\RoomRepositoryInterface;
 use App\Models\Room;
+use App\Models\Task;
+use Auth;
 
 class RoomRepositor implements RoomRepositoryInterface
 {
@@ -16,11 +18,21 @@ class RoomRepositor implements RoomRepositoryInterface
     }
 
     public function create(array $data) {
-        return Room::create($data);
+        $room =Room::create([
+            "name"=>$data['name'],
+            "description"=>$data['description'],
+            "wallet"=>$data['wallet'],
+            "owner_id"=>auth()->id()
+        ]);
+        return $room;
+
     }
 
-    public function update(Room $room, array $data) {
+    public function update($roomId, array $data) {
+        // dd($roomId);
+        $room=$this->findById($roomId);
         $room->update($data);
+        // $room->save();
         return $room;
     }
 

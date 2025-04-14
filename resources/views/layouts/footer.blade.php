@@ -150,7 +150,7 @@
             .sidebar {
                 width: 250px;
                 height: 100vh;
-                position: fixed;
+                position:fixed;
                 top: 0;
                 left: 0;
                 flex-direction: column;
@@ -202,29 +202,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Sidebar Navigation - Mobile Bottom Nav -->
-    @include('layouts.footer')
-    @include('layouts.header')
-    <!-- Main Content -->
-    <div class="main-content">
 
-
-        <div class="container">
-            <div class="profile-card">
-                <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : 'https://via.placeholder.com/100' }}"
-                    alt="Profile Image"
-                    class="profile-img"
-                    id="profile-image">
-                <h2 id="user-name">{{ Auth::user()->name }}</h2>
-                <p>Welcome to your dashboard!</p>
-
-                <div class="button-group">
-                    <a href="{{ route('profile') }}" class="btn">View Full Profile</a>
-                    <a href="{{ route('rooms.index') }}" class="btn btn-room">My Room</a>
-                </div>
-            </div>
-        </div>
+     <!-- Sidebar Navigation - Mobile Bottom Nav -->
+ <div class="sidebar">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('profile') }}" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('rooms.index') }}" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>MyRoom</span>
+                </a>
+            </li>
+        </ul>
     </div>
+
 </body>
 </html>
-i

@@ -18,7 +18,7 @@ class RoomController extends Controller
 
     public function index() {
         $rooms = $this->roomService->getAll();
-        return view('rooms.index', compact('rooms'));
+        return view('rooms.list_of_room', compact('rooms'));
     }
 
     public function create() {
@@ -41,8 +41,8 @@ class RoomController extends Controller
 
     public function update(UpdateRoomRequest $request, $id) {
         try {
-            $room = $this->roomService->findById($id);
-            $this->roomService->update($room, $request->validated());
+           $room = $this->roomService->findById($id);
+           $this->roomService->update($id, $request->validated());
             return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
         } catch (\Exception $e) {
             return back()->with('error', 'Error updating room: ' . $e->getMessage());
