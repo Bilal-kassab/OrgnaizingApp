@@ -40,16 +40,16 @@
                 <td style="display: flex; justify-content: space-around;">
 
                     {{--  --}}
-                    <a href="{{ route('taskDetails.index', $task->id) }}" class="btn btn-view">View Details</a>
+                    <a href="{{ route('taskDetails.index', $task->id) }}" class="btn2 btn-view">View Details</a>
 
                     {{--  --}}
-                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-edit">Edit</a>
+                    <a href="{{ route('tasks.edit', $task->id) }}" class="btn2 btn-edit">Edit</a>
 
                     {{--  --}}
                     <form  action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('POST')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button type="submit" class="btn2 btn-danger2" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>
             </tr>

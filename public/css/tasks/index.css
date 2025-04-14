@@ -1,7 +1,7 @@
 h2{
     text-decoration: underline;
 }
-.btn {
+.btn2 {
     display: inline-block;
     padding: 8px 12px;
     color: white;
@@ -18,7 +18,7 @@ h2{
 .btn-view:hover {
     background: #0056b3;
 }
-.btn-danger {
+.btn-danger2 {
     background: #dc3545;
 }
 .btn-edit{

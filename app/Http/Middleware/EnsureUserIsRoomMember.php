@@ -17,7 +17,7 @@ class EnsureUserIsRoomMember
     public function handle(Request $request, Closure $next): Response
     {
         $roomId = $request->route('roomId');
-        $userId = 1;
+        $userId = auth()->id();
 
         $room = Room::IsMember($userId)->find($roomId);
         if (!$room) {
